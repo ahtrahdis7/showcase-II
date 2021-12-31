@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { Text, Box, Image } from '@chakra-ui/react';
 
 import { baseUrl } from '../_helpers';
 
@@ -10,7 +11,7 @@ function Album() {
     }, []);
 
     useEffect(() => {
-        fetch(baseUrl + `/photos?folder=${Folder}`)
+        fetch(baseUrl + `/api/photos?folder=${Folder}`)
             .then(res => res.json())
             .then(data => {
                 setPhotos(data);
@@ -19,18 +20,18 @@ function Album() {
     }, [Folder]);
 
     return (
-        <div>
-            <h1>{Folder}</h1>
-            <div>
+        <Box>
+            <Text>{Folder}</Text>
+            <Box>
                 {photos.map((photo) => {
                     return (
-                        <div key={photo.id}>
-                            <img src={photo.url} alt={photo.title} height={250} width={400} />
-                        </div>
+                        <Box key={photo.id}>
+                            <Image src={photo.url} alt={photo.title} height={250} width={400} />
+                        </Box>
                     )
                 })}
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

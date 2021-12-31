@@ -5,13 +5,15 @@ async function getAllCollections() {
         return _f.folders;
     });
 
-    console.log(resp.folders);
+    console.log(resp.folders.map(f => f.name));
 
-    const folders = resp.folders;
+    const folders = resp.folders
 
     folders.map( folder => {
-        console.log(folder.name);
-        
+        console.log(folder);
+        cloudinary.search
+        .expression(`tags=${folder.name}`)
+        .execute().then(result => console.log(result));
     })
 }
 

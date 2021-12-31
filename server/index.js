@@ -27,27 +27,47 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/collections', (req, res) => {
-  // cloudinary call to retrieve all collections
+// app.get('/api/collections', (req, res) => {
+//   // cloudinary call to retrieve all collections
+//   try {
+//     cloudinary.api.root_folders((error, _f) => {
+//         res.json(_f.folders);
+//     });
+//   } catch (e) {
+//     res.status(errorMessage.statusCode).send(errorMessage.message);
+//   }
+//   // end of cloudinary call
+// })
+
+app.get('/api/collections', (req, res) => {
   try {
     cloudinary.api.root_folders((error, _f) => {
-        res.json(_f.folders);
+      let queryString = '';
+      _f.folders.map(folder => {
+        queryString += `tags=${folder.name} OR`;
+      });
+      queryString = queryString.slice(0, -3);
+      cloudinary.search
+      .expression(queryString)
+      .execute().then(result => {
+        console.log(result);
+        res.json(result.resources.map(r => { return { name: r.filename, url: r.secure_url } }));
+      });
     });
   } catch (e) {
     res.status(errorMessage.statusCode).send(errorMessage.message);
   }
-  // end of cloudinary call
 })
 
 // query contains folder name : req.query.folder
-app.get('/photos', (req, res) => {
+app.get('/api/photos', (req, res) => {
   const folder = req.query.folder;
 
   // cloudinary call to get all photos in collection
   try {
     cloudinary.search
     .expression(`folder=${folder}`)
-    .execute().then(result => res.json(result.resources));
+    .execute().then(result => res.json(result.resources.map(r => r.secure_url)));
   } catch(e) {
     res.status(errorMessage.statusCode).send(errorMessage.message);
   }
