@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
-const path = require('path')
+const cors = require('cors');
+
 const { cloudinary } = require('./cloudinary');
 const port = 5001
 
@@ -18,11 +19,18 @@ app.use(express.static("../build"));
 //     res.sendFile(path.join(__dirname, "../build", "index.html"));
 // })
 
+// to enable cors
+app.use(cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/collections', (req, res) => {
   // cloudinary call to retrieve all collections
   try {
     cloudinary.api.root_folders((error, _f) => {
-        console.log(_f.folders);
         res.json(_f.folders);
     });
   } catch (e) {
@@ -31,7 +39,7 @@ app.get('/collections', (req, res) => {
   // end of cloudinary call
 })
 
-// query contains collection name
+// query contains folder name : req.query.folder
 app.get('/photos', (req, res) => {
   const folder = req.query.folder;
 
