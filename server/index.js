@@ -1,15 +1,14 @@
 const express = require('express')
 const app = express()
 const cors = require('cors');
+require('dotenv')
 
 const { cloudinary } = require('./cloudinary');
-const port = 5001
-
+const PORT = process.env.PORT
 
 const errorMessage = {
     message: 'Something went wrong',
     statusCode: 400
-
 }
 
 // it server bundled react code from the build folder
@@ -50,8 +49,9 @@ app.get('/api/collections', (req, res) => {
       cloudinary.search
       .expression(queryString)
       .execute().then(result => {
-        console.log(result);
-        res.json(result.resources.map(r => { return { name: r.filename, url: r.secure_url } }));
+        const resp = result.resources.map(r => { return { name: r.filename, url: r.secure_url } });
+        // console.log(resp)
+        res.json(resp);
       });
     });
   } catch (e) {
@@ -67,13 +67,17 @@ app.get('/api/photos', (req, res) => {
   try {
     cloudinary.search
     .expression(`folder=${folder}`)
-    .execute().then(result => res.json(result.resources.map(r => r.secure_url)));
+    .execute().then(result => {
+      const resp = result.resources.map(r => r.secure_url);
+      // console.log(resp);
+      res.json(resp);
+    });
   } catch(e) {
     res.status(errorMessage.statusCode).send(errorMessage.message);
   }
   // end of cloudinary call
 })
 
-app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Listening at http://localhost:${PORT}`)
 })
