@@ -17,9 +17,9 @@ function Main() {
         })
     }, []);
 
-    const onClickImage = () => {
-        window.href.location = "";
-    }
+    // const onClickImage = () => {
+    //     window.href.location = "";
+    // }
 
     return (
         <>

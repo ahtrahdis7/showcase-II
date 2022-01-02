@@ -1,4 +1,4 @@
-const { cloudinary } = require('./cloudinary');
+const { cloudinary } = require('../cloudinary');
 
 async function getAllCollections() {
     const resp = await cloudinary.api.root_folders((error, _f) => {

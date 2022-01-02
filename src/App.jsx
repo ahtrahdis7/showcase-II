@@ -1,5 +1,5 @@
-import { Routes, Route, Link } from "react-router-dom";
-import { Box, Text } from '@chakra-ui/react';
+import { Routes, Route } from "react-router-dom";
+import { Box } from '@chakra-ui/react';
 import { Main, Album } from './pages';
 
 function App() {

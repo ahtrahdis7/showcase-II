@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Text, Box, Image } from '@chakra-ui/react';
 
 import { baseUrl } from '../_helpers';
-const HEIGHT = window.innerHeight
+// const HEIGHT = window.innerHeight
 
 function Album() {
     const [ photos, setPhotos ] = useState([]);
