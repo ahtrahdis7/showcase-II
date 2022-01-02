@@ -1,4 +1,26 @@
-# Getting Started with Create React App
+# ShowCase II
+
+1. Setup your cloudinary account
+2. Split your collections as folders i.e. create different folders for different collections
+3. Add an image ( here, thumbnail ) for coverpic of those folders and rename them to `foldername` and add a tag same as the foldername.
+4. Add your credentials to the project deployment.
+5. You are good to go.
+
+<img width="540" alt="Screenshot 2022-01-02 at 7 00 35 PM" src="https://user-images.githubusercontent.com/44672399/147877366-53cd3c62-3d1b-47ec-a337-87481a114409.png">
+
+
+## ENV file as follows :
+```
+CLOUDINARY_CLOUD_NAME=xxx
+CLOUDINARY_API_KEY=xxx
+CLOUDINARY_API_SECRET=xxx
+PORT=xxx
+```
+
+## Deployment Command:
+```yarn server:prod or yarn server:dev```
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
