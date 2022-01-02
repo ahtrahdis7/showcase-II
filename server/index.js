@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors');
 require('dotenv')
 
-const { cloudinary } = require('./cloudinary');
+const { cloudinary } = require('../cloudinary');
 const PORT = process.env.PORT
 
 const errorMessage = {
